@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bitbank contas cadastradas </title>
+</head>
+<body>
+    <h1>Listagem de contas </h1>
+    <hr>
+    <form th:action="@{/contas/form}" method="GET">
+        <button class="btn btn-primary" type="submit">Nova</button>
+        <br>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Correntista</th>
+                <th style="text-align: center;">Data abertura</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="conta : ${contas}">
+                   <td> <a th:href="@{/contas/{id}(id=${conta.id})}" th:text="${conta.numero}"></td> 
+                   <td><a th:text="${conta.correntista.nome}"></td>
+                    <td th:text="${#dates.format(conta.data, 'dd/MM/yyyy')}" style="text-align:center;"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
