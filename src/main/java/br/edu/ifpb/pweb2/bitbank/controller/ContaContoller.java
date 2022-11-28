@@ -2,6 +2,7 @@ package br.edu.ifpb.pweb2.bitbank.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,33 +14,38 @@ import br.edu.ifpb.pweb2.bitbank.model.Correntista;
 import br.edu.ifpb.pweb2.bitbank.repository.ContaRepository;
 import br.edu.ifpb.pweb2.bitbank.repository.CorrentistaRepository;
 
+
 @Controller
 @RequestMapping("/contas")
 public class ContaContoller {
+    @Autowired
+    ContaRepository contaRepository;
+    @Autowired
+    CorrentistaRepository correntistaRepository;
     @RequestMapping("/form")
-    public ModelAndView getform(ModelAndView modelAndView){
+    public ModelAndView getform( ModelAndView modelAndView){
         modelAndView.setViewName("contas/form");
         modelAndView.addObject("conta",new Conta(new Correntista()));
         return modelAndView;
     }
 @ModelAttribute("correntistaItens")
 public List<Correntista> getCorrentista(){
-    return CorrentistaRepository.findAll();
+    return correntistaRepository.findAll();
 }
 @RequestMapping(method =  RequestMethod.POST)
-   public ModelAndView adicioneConta(Conta conta,ModelAndView modelAndView){
-    Correntista correntista = CorrentistaRepository.findById(conta.getCorrentista().getId());
-    conta.setId(ContaRepository.getMaxId());
+   public ModelAndView adicioneConta(Conta conta,ModelAndView modelAndView) throws NoSuchFieldException{
+    Correntista correntista = correntistaRepository.findById(conta.getCorrentista().getId());
+    conta.setId(contaRepository.getMaxId());
     conta.setCorrentista(correntista);
-    ContaRepository.save(conta);
+    contaRepository.save(conta);
     modelAndView.setViewName("contas/list");
-    modelAndView.addObject("contas", ContaRepository.findAll());
+    modelAndView.addObject("contas", contaRepository.findAll());
     return modelAndView;
    } 
    @RequestMapping("list")
    public ModelAndView liste( ModelAndView modelAndView){
     modelAndView.setViewName("contas/list");
-    modelAndView.addObject("contas",ContaRepository.findAll());
+    modelAndView.addObject("contas",contaRepository.findAll());
     return modelAndView;
    }
 }

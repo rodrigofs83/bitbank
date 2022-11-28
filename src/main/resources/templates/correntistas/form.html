@@ -11,7 +11,7 @@
     <div th:text="${mensagem}"
         style="color: red"></div>
 
-    <form th:action="@{/correntistas/save}"
+    <form th:action="@{/correntistas}"
         method="POST"
         th:object="${correntista}">
         Id: <input type="text"

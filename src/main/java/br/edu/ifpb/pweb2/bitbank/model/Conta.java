@@ -12,7 +12,7 @@ import java.util.Set;
 import lombok.Data;
 
 @Data
-public class Conta implements Serializable {
+public class Conta implements Serializable,Entidade {
     private static final long serialVersionUID = 1L;
 
     private Integer id;

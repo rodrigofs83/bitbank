@@ -9,7 +9,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Transacao implements Serializable {
+public class Transacao implements Serializable ,Entidade{
     private static final long serialVersionUID = 1L;
 
     private Integer id;

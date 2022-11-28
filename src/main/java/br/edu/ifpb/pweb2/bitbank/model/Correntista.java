@@ -6,7 +6,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class Correntista implements Serializable {
+public class Correntista implements Serializable,Entidade {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
